@@ -9,11 +9,12 @@
     "restaurant",
     "AI"
   ],
-  "main": "dist/src/index.js",
+  "main": "dist/src/app.js",
   "scripts": {
-    "dev": "tsx watch --env-file=.env src/index.ts",
+    "dev": "tsx watch --env-file=.env src/app.ts",
     "build": "tsc",
-    "start": "node dist/index.js"
+    "start": "node dist/app.js",
+    "vercel-build": "echo building..."
   },
   "dependencies": {
     "express": "^5.1.0",
