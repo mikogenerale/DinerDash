@@ -3,6 +3,7 @@ import express from 'express';
 import env from './env';
 import apiRoutes from "./routes"
 import { globalErrorHandler } from './middleware/globalErrorHandler';
+import { notFoundHandler } from './middleware/notFoundHandler';
 
 const app = express()
 
@@ -15,6 +16,7 @@ app.get('/', (_req: Request, res: Response) => {
 });
 
 app.use(globalErrorHandler);
+app.use(notFoundHandler)
 
 app.listen(env.PORT, () => {
   console.log(`App is running at url: http://localhost:${env.PORT}`);
