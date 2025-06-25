@@ -5,7 +5,10 @@ import searchQueryParamValidator from '../middleware/searchQueryParamValidator';
 
 const router = Router();
 
-router.use(searchQueryParamValidator);
-router.get('/execute', searchController.search);
+router.get(
+  '/execute',
+  searchQueryParamValidator, 
+  searchController.search
+);
 
 export default router;
