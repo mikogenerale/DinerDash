@@ -1,2 +1,2 @@
 export { default as FSQService } from './FSQService'
-export { default as OpenAiService } from './OpenAiService'
+export { default as GeminiService } from './GeminiService'

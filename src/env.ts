@@ -9,7 +9,10 @@ const EnvSchema = z.object({
   
   FSQ_API_KEY: z.string(),
   FSQ_BASE_URL: z.string(),
-  FSQ_PLACES_API_VERSION: z.string()
+  FSQ_PLACES_API_VERSION: z.string(),
+
+  GEMINI_API_KEY: z.string(),
+  GEMINI_MODEL: z.string()
 });
 
 export type EnvType = z.infer<typeof EnvSchema>;

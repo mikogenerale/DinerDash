@@ -3,6 +3,7 @@ import env from "../env";
 import { LLMResponse } from "../types/LLMResponse";
 import FSQBadRequest from "../errors/foursquare/FSQBadRequest";
 import FSQUnauthorized from "../errors/foursquare/FSQUnauthorized";
+import { fsqReturnFields } from "../constants";
 
 class FSQService {
 
@@ -10,12 +11,18 @@ class FSQService {
     try {
       const { FSQ_API_KEY, FSQ_BASE_URL, FSQ_PLACES_API_VERSION } = env
 
+      const filteredParameters = Object.fromEntries(
+        Object.entries(jsonData.parameters)
+              .filter(([_, v]) => v !== undefined)
+              .map(([k, v]) =>  [k, v.toString()])
+       )
+
       const queryParams = new URLSearchParams({
-        ...jsonData.parameters,
-        price: jsonData.parameters.price.toString(),
-        open_now: jsonData.parameters.open_now.toString(),
-        fields: 'name,price,location,hours,rating,tastes,fsq_place_id,menu'
+        ...filteredParameters,
+        fields: fsqReturnFields.join(',')
       })
+
+      console.log(jsonData)
       
       const url = `${FSQ_BASE_URL}?${queryParams}`
 
