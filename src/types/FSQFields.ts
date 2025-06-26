@@ -5,8 +5,8 @@ const FSQFieldsSchema = z.object({
   address: z.string(),
   cuisine: z.string(),
   rating: z.string(),
-  price: z.number(),
-  hours_popular: z.array(z.string())
+  price: z.string(),
+  hours: z.array(z.string())
 })
 
 export type FSQFields = z.infer<typeof FSQFieldsSchema>
