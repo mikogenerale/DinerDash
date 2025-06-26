@@ -1,25 +1,29 @@
 import { Request, Response } from "express";
 import { SearchQueryParam } from "../types/SearchQueryParam";
-import { FSQService, OpenAiService } from "../services";
- 
+import { FSQService, GeminiService } from "../services";
+import { categoryActions } from "../constants";
+import { generateAiPrompt } from "../utils/generateAiPrompt";
 class SearchController {
   fsqService: FSQService
-  openAiService: OpenAiService
+  geminiService: GeminiService
 
   constructor() {
     this.fsqService = new FSQService()
-    this.openAiService = new OpenAiService()
+    this.geminiService = new GeminiService()
   }
 
   search = async (req: Request, res: Response) => {
     const { message } = req.query as SearchQueryParam
-    const promptMessage = decodeURIComponent(message)
+    const decodedMessage = decodeURIComponent(message)
 
-    const converted = await this.openAiService.convertStringToJSON(promptMessage)
-    const result = await this.fsqService.search(converted)
+    const actions = Object.keys(categoryActions)
+
+    const prompt = generateAiPrompt(decodedMessage, actions)
+    const generatedJSON = await this.geminiService.ask(prompt)
+    const result = await this.fsqService.search(generatedJSON)
 
     res.json({
-      data: result,
+      result
     });
   }
 }
