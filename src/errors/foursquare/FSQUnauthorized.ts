@@ -1,5 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { BaseError } from "../BaseError";
+import { ErrorCodes } from "../ErrorCodes";
 
 class FSQUnauthorized extends BaseError {
   code: ErrorCodes

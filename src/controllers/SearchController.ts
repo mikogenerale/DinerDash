@@ -18,9 +18,7 @@ class SearchController {
     const converted = await this.openAiService.convertStringToJSON(promptMessage)
     const result = await this.fsqService.search(converted)
 
-    res.json({
-      data: result,
-    });
+    res.json(result);
   }
 }
 

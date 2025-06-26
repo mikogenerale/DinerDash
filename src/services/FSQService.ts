@@ -1,9 +1,8 @@
 import { StatusCodes } from "http-status-codes";
 import env from "../env";
-import { FSQFields } from "../types/FSQFields";
 import { LLMResponse } from "../types/LLMResponse";
-import FSQBadRequest from "../errors/foursqaure/FSQBadRequest";
-import FSQUnauthorized from "../errors/foursqaure/FSQUnauthorized";
+import FSQBadRequest from "../errors/foursquare/FSQBadRequest";
+import FSQUnauthorized from "../errors/foursquare/FSQUnauthorized";
 
 class FSQService {
 
@@ -15,7 +14,7 @@ class FSQService {
         ...jsonData.parameters,
         price: jsonData.parameters.price.toString(),
         open_now: jsonData.parameters.open_now.toString(),
-        fields: 'name,price,location,hours,rating'
+        fields: 'name,price,location,hours,rating,tastes,fsq_place_id,menu'
       })
       
       const url = `${FSQ_BASE_URL}?${queryParams}`

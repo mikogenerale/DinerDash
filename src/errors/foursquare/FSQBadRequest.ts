@@ -1,6 +1,6 @@
 import { StatusCodes } from "http-status-codes";
 import { BaseError } from "../BaseError";
-import { ErrorCodes } from "../errorCodes";
+import { ErrorCodes } from "../ErrorCodes";
 
 class FSQBadRequest extends BaseError {
   code: ErrorCodes
