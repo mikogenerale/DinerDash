@@ -1,5 +1,14 @@
 import { GenerateContentConfig, Type } from "@google/genai"
 
+
+/**
+ * A utility function that returns GenerateContentConfig object.
+ * 
+ * @param {GenerateContentConfig} opts - an optional option object to extend default Gemini configuration.
+ * 
+ * @returns {GenerateContentConfig object}
+ */
+
 export const generateContentConfig = (opts?: GenerateContentConfig): GenerateContentConfig => {
   return {
     responseMimeType: "application/json",

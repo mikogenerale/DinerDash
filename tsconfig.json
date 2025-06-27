@@ -2,9 +2,6 @@
   "compilerOptions": {
     "target": "es2016",
     "module": "commonjs",
-    "paths": {
-      "@/*": ["./src"]
-    },
     "strictNullChecks": true,
     "outDir": "./dist",
     "esModuleInterop": true,

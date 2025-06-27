@@ -13,7 +13,17 @@ class SearchController {
     this.geminiService = new GeminiService()
   }
 
-  search = async (req: Request, res: Response) => {
+/**
+ * A controller method that calls the Assistant to structure the input message into JSON,
+ * sends the structured data to the Foursquare API, and returns a list of restaurant results.
+ *
+ * @param req - Express Request object.
+ * @param res - Express Response object.
+ *
+ * @returns {Promise<void>} - Sends a JSON response using res.json().
+ */
+
+  search = async (req: Request, res: Response): Promise<void> => {
     const { message } = req.query as SearchQueryParam
 
     // get the decoded URL encoding
