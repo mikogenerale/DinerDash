@@ -4,15 +4,26 @@ import { LLMResponse } from "../types/LLMResponse";
 import FSQBadRequest from "../errors/foursquare/FSQBadRequest";
 import FSQUnauthorized from "../errors/foursquare/FSQUnauthorized";
 import { fsqReturnFields } from "../constants";
+import { FSQResponse } from "../types/FSQResponse";
 
 class FSQService {
 
-  async search(jsonData: LLMResponse) {
+
+ /**
+ * Calls the Foursquare API based on LLM response data.
+ *
+ * @param {LLMResponse} data - An LLMResponse parameter.
+ * @returns {Promise<FSQResponse>} - A response after calling the Foursquare API.
+ * @throws {BadRequestError} If the input data is invalid.
+ * @throws {UnauthorizedError} If the request is unauthorized.
+ */
+
+  async search(data: LLMResponse): Promise<FSQResponse> {
     try {
       const { FSQ_API_KEY, FSQ_BASE_URL, FSQ_PLACES_API_VERSION } = env
 
       const filteredParameters = Object.fromEntries(
-        Object.entries(jsonData.parameters)
+        Object.entries(data.parameters)
               .filter(([_, v]) => v !== undefined)
               .map(([k, v]) =>  [k, v.toString()])
        )
@@ -21,8 +32,6 @@ class FSQService {
         ...filteredParameters,
         fields: fsqReturnFields.join(',')
       })
-
-      console.log(jsonData)
       
       const url = `${FSQ_BASE_URL}?${queryParams}`
 
@@ -43,7 +52,7 @@ class FSQService {
         }))
       }
 
-      return await response.json()
+      return await response.json() as FSQResponse
     }
     catch(e) {
       const error = JSON.parse(e.message) 

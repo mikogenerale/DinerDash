@@ -1,11 +1,8 @@
 import { StatusCodes } from 'http-status-codes';
-import { BaseError } from './BaseError';
-import { ErrorCodes } from './ErrorCodes';
-
+import { BaseError } from '../BaseError';
 
 export class InvalidSearchQueryParam extends BaseError {
   fieldErrors?: any;
-  code: ErrorCodes
   
   constructor(
     fieldErrors?: any, 
@@ -14,6 +11,5 @@ export class InvalidSearchQueryParam extends BaseError {
   ) {
     super(statusCode ?? StatusCodes.BAD_REQUEST, message ?? 'Invalid Search Query Parameters.');
     this.fieldErrors = fieldErrors;
-    this.code = ErrorCodes.INVALID_SEARCH_QUERY
   }
 }

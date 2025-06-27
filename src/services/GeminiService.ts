@@ -1,41 +1,49 @@
-import { GenerateContentResponse, GoogleGenAI } from "@google/genai";
+import {ApiError, GenerateContentResponse, GoogleGenAI } from "@google/genai";
 import env from "../env";
-import { LLMResponse, LLMResponseSchema } from "../types/LLMResponse";
-import { ZodError } from "zod/v4";
+import { LLMResponse } from "../types/LLMResponse";
+import { generateContentConfig } from "../utils/generateContentConfig";
+import GeminiErrorResponse from "../errors/ai/GeminiErrorResponse";
 
 class GeminiService {
-
   private assistant: GoogleGenAI
 
   constructor() {
     this.assistant = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY })
   }
 
+  /**
+   * Getter function
+   * 
+   * @returns {GoogleGenAI} - returns the instance of GoogleGenAI 
+   */
+
   getConnection = (): GoogleGenAI => {
     return this.assistant
   }
 
-  ask = async (prompt: string): Promise<LLMResponse> => {
+/**
+ * Accepts input message and instruction then outputs a JSON format (LLMResponse).
+ *
+ * @param {string} message - A content message string parameter.
+ * @param {string} instruction - A system instruction string parameter
+ * 
+ * @returns {Promise<LLMResponse>} - returns a structured JSON (LLMResponse) base on input message.
+ * 
+ * @throws {GeminiErrorResponse} - If there is an ApiError thrown by Gemini.
+ *
+ */
+
+  ask = async (message: string, instruction: string): Promise<LLMResponse> => {
     try {
       const response: GenerateContentResponse = await this.getConnection().models.generateContent({
         model: env.GEMINI_MODEL,
-        contents: prompt,
+        contents: message,
+        config: generateContentConfig({ systemInstruction: instruction })
       });
-
-      const jsonResponse = JSON.parse(response.text ?? "")
-      console.log(jsonResponse)
-
-      LLMResponseSchema.parse(jsonResponse)
-
-      return jsonResponse
+      return JSON.parse(response.text ?? "") as LLMResponse
     }
     catch(e) {
-      // const error = e as ZodError
-      // console.log(error.flatten())
-      if(e instanceof ZodError) {
-        console.log(e.flatten().fieldErrors)
-      }
-      throw e
+     throw new GeminiErrorResponse(e as ApiError)
     }
   }
 }
