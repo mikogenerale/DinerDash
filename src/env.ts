@@ -5,14 +5,13 @@ const EnvSchema = z.object({
   NODE_ENV: z.string().default('development'),
   PORT: z.coerce.number().default(3000),
   SECRET_CODE: z.string().default(""),
-  OPENAI_API_KEY: z.string().default(""),
   
   FSQ_API_KEY: z.string(),
   FSQ_BASE_URL: z.string(),
   FSQ_PLACES_API_VERSION: z.string(),
 
   GEMINI_API_KEY: z.string(),
-  GEMINI_MODEL: z.string()
+  GEMINI_MODEL: z.string().default("gemini-2.0-flash")
 });
 
 export type EnvType = z.infer<typeof EnvSchema>;

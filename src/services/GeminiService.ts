@@ -1,7 +1,8 @@
-import { GenerateContentResponse, GoogleGenAI } from "@google/genai";
+import {ApiError, GenerateContentResponse, GoogleGenAI } from "@google/genai";
 import env from "../env";
-import { LLMResponse, LLMResponseSchema } from "../types/LLMResponse";
-import { ZodError } from "zod/v4";
+import { LLMResponse } from "../types/LLMResponse";
+import { generateContentConfig } from "../utils/generateContentConfig";
+import GeminiErrorResponse from "../errors/ai/GeminiErrorResponse";
 
 class GeminiService {
 
@@ -15,26 +16,17 @@ class GeminiService {
     return this.assistant
   }
 
-  ask = async (prompt: string): Promise<LLMResponse> => {
+  ask = async (message: string, instruction: string): Promise<LLMResponse> => {
     try {
       const response: GenerateContentResponse = await this.getConnection().models.generateContent({
         model: env.GEMINI_MODEL,
-        contents: prompt,
+        contents: message,
+        config: generateContentConfig({ systemInstruction: instruction })
       });
-
-      const jsonResponse = JSON.parse(response.text ?? "")
-
-      LLMResponseSchema.parse(jsonResponse)
-
-      return jsonResponse
+      return JSON.parse(response.text ?? "")
     }
     catch(e) {
-      // const error = e as ZodError
-      // console.log(error.flatten())
-      if(e instanceof ZodError) {
-        console.log(e.flatten().fieldErrors)
-      }
-      throw e
+     throw new GeminiErrorResponse(e as ApiError)
     }
   }
 }

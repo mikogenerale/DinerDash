@@ -6,7 +6,6 @@ import FSQUnauthorized from "../errors/foursquare/FSQUnauthorized";
 import { fsqReturnFields } from "../constants";
 
 class FSQService {
-
   async search(jsonData: LLMResponse) {
     try {
       const { FSQ_API_KEY, FSQ_BASE_URL, FSQ_PLACES_API_VERSION } = env

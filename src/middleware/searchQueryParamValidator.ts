@@ -2,7 +2,7 @@ import type { NextFunction, Request, Response } from 'express';
 import { ZodError } from 'zod';
 import { SearchQueryParamSchema } from '../types/SearchQueryParam';
 import { StatusCodes } from 'http-status-codes';
-import { InvalidSearchQueryParam } from '../errors/InvalidSearchQueryParam';
+import { InvalidSearchQueryParam } from '../errors/app/InvalidSearchQueryParam';
 
 function searchQueryParamValidator(req: Request, _res: Response, next: NextFunction) {
   try {
