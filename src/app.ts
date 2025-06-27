@@ -4,14 +4,22 @@ import env from './env';
 import apiRoutes from "./routes"
 import { globalErrorHandler } from './middleware/globalErrorHandler';
 import { notFoundHandler } from './middleware/notFoundHandler';
+import { swaggerDocs } from './docs/swagger';
+import swaggerUi from "swagger-ui-express"
 
 const app = express()
+
+app.use(
+    '/api_docs', 
+    swaggerUi.serve, 
+    swaggerUi.setup(swaggerDocs)
+);
 
 app.use('/api', apiRoutes)
 
 app.get('/', (_req: Request, res: Response) => {
   res.json({
-    message: 'Health check',
+    message: 'Diner Dash Running Healthy',
   });
 });
 

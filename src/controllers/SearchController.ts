@@ -28,9 +28,7 @@ class SearchController {
     // call foursquare search service
     const result = await this.fsqService.search(generatedJSON)
 
-    res.json({
-      result
-    });
+    res.json(result);
   }
 }
 

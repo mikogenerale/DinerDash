@@ -23,7 +23,7 @@ class GeminiService {
         contents: message,
         config: generateContentConfig({ systemInstruction: instruction })
       });
-      return JSON.parse(response.text ?? "")
+      return JSON.parse(response.text ?? "") as LLMResponse
     }
     catch(e) {
      throw new GeminiErrorResponse(e as ApiError)

@@ -4,9 +4,10 @@ import { LLMResponse } from "../types/LLMResponse";
 import FSQBadRequest from "../errors/foursquare/FSQBadRequest";
 import FSQUnauthorized from "../errors/foursquare/FSQUnauthorized";
 import { fsqReturnFields } from "../constants";
+import { FSQResponse } from "../types/FSQResponse";
 
 class FSQService {
-  async search(jsonData: LLMResponse) {
+  async search(jsonData: LLMResponse): Promise<FSQResponse> {
     try {
       const { FSQ_API_KEY, FSQ_BASE_URL, FSQ_PLACES_API_VERSION } = env
 
@@ -40,7 +41,7 @@ class FSQService {
         }))
       }
 
-      return await response.json()
+      return await response.json() as FSQResponse
     }
     catch(e) {
       const error = JSON.parse(e.message) 
