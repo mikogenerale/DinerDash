@@ -17,7 +17,6 @@ class SearchController {
     const decodedMessage = decodeURIComponent(message)
 
     const actions = Object.keys(categoryActions)
-
     const prompt = generateAiPrompt(decodedMessage, actions)
     const generatedJSON = await this.geminiService.ask(prompt)
     const result = await this.fsqService.search(generatedJSON)

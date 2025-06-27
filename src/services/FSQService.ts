@@ -21,8 +21,6 @@ class FSQService {
         ...filteredParameters,
         fields: fsqReturnFields.join(',')
       })
-
-      console.log(jsonData)
       
       const url = `${FSQ_BASE_URL}?${queryParams}`
 

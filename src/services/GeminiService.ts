@@ -23,7 +23,6 @@ class GeminiService {
       });
 
       const jsonResponse = JSON.parse(response.text ?? "")
-      console.log(jsonResponse)
 
       LLMResponseSchema.parse(jsonResponse)
 

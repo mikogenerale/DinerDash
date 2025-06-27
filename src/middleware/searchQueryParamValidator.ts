@@ -11,9 +11,6 @@ function searchQueryParamValidator(req: Request, _res: Response, next: NextFunct
   catch (e) {
     const error = e as ZodError
     const fieldErrors = error.flatten().fieldErrors
-
-    console.log(fieldErrors)
-
     throw new InvalidSearchQueryParam(
       fieldErrors, 
       StatusCodes.UNAUTHORIZED,
