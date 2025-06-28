@@ -10,12 +10,15 @@ class FSQService {
 
 
  /**
- * Calls the Foursquare API based on LLM response data.
+ * Calls the Foursquare API using the provided data and returns the search result.
  *
  * @param {LLMResponse} data - An LLMResponse parameter.
+ * 
  * @returns {Promise<FSQResponse>} - A response after calling the Foursquare API.
+ * 
  * @throws {BadRequestError} If the input data is invalid.
  * @throws {UnauthorizedError} If the request is unauthorized.
+ * 
  */
 
   async search(data: LLMResponse): Promise<FSQResponse> {

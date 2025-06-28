@@ -3,6 +3,7 @@ import { z } from 'zod';
 
 const EnvSchema = z.object({
   NODE_ENV: z.string().default('development'),
+  APP_BASE_URL: z.string().default('http://127.0.0.1'),
   PORT: z.coerce.number().default(3000),
   SECRET_CODE: z.string().default(""),
   

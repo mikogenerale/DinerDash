@@ -2,23 +2,29 @@
 import packageJson from "../../package.json"
 import env from "../env"
 
-export const swaggerDocs = {
+const getServers = () => {
+  const isDevelopEnv = env.NODE_ENV === 'development'
+  return [
+    {
+      url: isDevelopEnv
+            ? `${env.APP_BASE_URL}:${env.PORT}` 
+            : `${env.APP_BASE_URL}`,
+
+      description: isDevelopEnv
+            ? `Local Server` 
+            : `Deployed Server`,
+    }
+  ]
+}
+
+export const openapiDocs = {
   openapi: "3.0.0",
   info: {
     title: "Diner Dash",
     version: packageJson.version,
     description: "An LLM-Driven Restaurant Finder API that allows users to enter a free‑form message describing what they want to do."
   },
-  servers: [
-    {
-      url: `http://localhost:${env.PORT}`,
-      description: "Local Server"
-    },
-    {
-      url: `https://diner-dash-nu.vercel.app`,
-      description: "Vercel Deployment Server"
-    }
-  ],
+  servers: getServers(),
   paths: {
     "/": {
       get: {
