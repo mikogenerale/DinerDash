@@ -41,10 +41,11 @@ class GeminiService {
         config: generateContentConfig({ 
           systemInstruction: instruction,
           thinkingConfig: {
-            thinkingBudget: 100
+            thinkingBudget: 500
           }
         })
       });
+
       return JSON.parse(response.text ?? "") as LLMResponse
     }
     catch(e) {
