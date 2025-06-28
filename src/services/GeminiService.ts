@@ -38,7 +38,12 @@ class GeminiService {
       const response: GenerateContentResponse = await this.getConnection().models.generateContent({
         model: env.GEMINI_MODEL,
         contents: message,
-        config: generateContentConfig({ systemInstruction: instruction })
+        config: generateContentConfig({ 
+          systemInstruction: instruction,
+          thinkingConfig: {
+            thinkingBudget: 100
+          }
+        })
       });
       return JSON.parse(response.text ?? "") as LLMResponse
     }
