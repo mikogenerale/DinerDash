@@ -6,13 +6,14 @@ export const categoryActions = {
   diner_search: "4bf58dd8d48988d147941735"
 }
 
+export const priceRange = ["1", "2", "3", "4"]
+
 export const fsqReturnFields = [
   'name', 
   'price', 
   'location', 
   'hours',
   'rating',
-  'tastes',
   'fsq_place_id',
   'menu'
 ]

@@ -14,6 +14,7 @@ function searchQueryParamValidator(req: Request, _res: Response, next: NextFunct
     throw new InvalidSearchQueryParam(
       fieldErrors, 
       StatusCodes.UNAUTHORIZED,
+      "Unauthorized Request Access"
     );
   }
   next();

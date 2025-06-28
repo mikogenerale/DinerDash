@@ -7,7 +7,7 @@ export const SearchQueryParamSchema = z.object({
     if(ctx.value !== env.SECRET_CODE) {
       ctx.issues.push({
         code: 'custom',
-        message: 'Invalid secret code. Try again.',
+        message: 'Code did not match',
         input: ctx.value
       })
     }

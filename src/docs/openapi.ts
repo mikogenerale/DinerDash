@@ -43,7 +43,7 @@ export const openapiDocs = {
           { 
             name: "message",
             in: "query",
-            description: "The search input message. Note URL encoded message.",
+            description: "The search input message.",
             required: true,
             schema: {
               type: "string"
