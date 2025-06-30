@@ -21,7 +21,7 @@ class FSQService {
  * 
  */
 
-  async search(data: LLMResponse): Promise<FSQResponse> {
+  async search(data: LLMResponse): Promise<FSQResponse[]> {
     try {
       const { FSQ_API_KEY, FSQ_BASE_URL, FSQ_PLACES_API_VERSION } = env
 
@@ -55,9 +55,13 @@ class FSQService {
         }))
       }
 
-   
+      const jsonResponse = await response.json()
 
-      return await response.json() as FSQResponse
+      const restaurants = ("results" in jsonResponse) 
+        ? jsonResponse.results
+        : []
+
+      return restaurants as FSQResponse[]
     }
     catch(e) {
       const error = JSON.parse(e.message) 
